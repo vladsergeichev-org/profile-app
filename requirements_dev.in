@@ -1,0 +1,7 @@
+sqlalchemy
+alembic
+asyncpg
+python-dotenv
+fastapi
+
+uvicorn
