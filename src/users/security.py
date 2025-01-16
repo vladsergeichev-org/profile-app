@@ -2,7 +2,6 @@ import hashlib
 import os
 from dataclasses import dataclass
 from typing import Tuple
-from config import PWD_SECRET as SALT
 
 
 @dataclass

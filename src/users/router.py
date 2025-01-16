@@ -3,7 +3,7 @@ from sqlalchemy import select, insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database import get_async_session
-from tools.security import PasswordHelper
+from users.security import PasswordHelper
 from users.models import user
 from users.schemas import UserSearch, UserCreate, UserLogin
 
@@ -26,6 +26,21 @@ async def get_user(user_data: UserSearch, session: AsyncSession = Depends(get_as
         "registered_at": row[6],
         "email": row[7],
     }
+    # return [r._mapping for r in result.all()]
+
+
+@router.get("/all")
+async def get_all_users(session: AsyncSession = Depends(get_async_session)):
+    query = select(user)
+    result = await session.execute(query)
+    return [{
+        "id": r[0],
+        "name": r[1],
+        "surname": r[2],
+        "username": r[3],
+        "registered_at": r[6],
+        "email": r[7],
+    } for r in result.all()]
     # return [r._mapping for r in result.all()]
 
 
